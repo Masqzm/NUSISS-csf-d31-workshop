@@ -1,0 +1,14 @@
+<h2><code>app-pagination</code></h2>
+
+<div>
+    <button type="button" (click)="updateCount(-delta)"> Prev </button>
+
+    Step:
+    <select (change)="updateStep($event)">  
+        @for (step of steps; track $index) {
+            <option [value]="step">{{ step }}</option>
+        }
+    </select>
+
+    <button type="button" (click)="updateCount(delta)"> Next </button>
+</div>
