@@ -1,5 +1,5 @@
 <h1>Day 31 Workshop</h1>
 
-<app-number [currentNum]="count"></app-number>
+<app-number [imgNum]="count"></app-number>
 <hr>
-<app-pagination (newNumber)="onNewNumber($event)"></app-pagination>
+<app-pagination [count]="count" (numUpdated)="onNewNumber($event)"></app-pagination>

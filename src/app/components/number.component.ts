@@ -7,9 +7,9 @@ import { Component, Input } from '@angular/core';
   styleUrl: './number.component.css'
 })
 export class NumberComponent {
-  imgPrefix = '/assets/numbers/number'
+  imgPrefix = '/numbers/number'
   imgSuffix = '.jpg'
 
   @Input()        // For attribute binding (receive input from parent)
-  currentNum = 0
+  imgNum = 0
 }

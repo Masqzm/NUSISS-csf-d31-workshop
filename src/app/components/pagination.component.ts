@@ -1,5 +1,6 @@
 import { Component, Input, Output } from '@angular/core';
 import { Subject } from 'rxjs';
+import { PaginationEvent } from './models/models';
 
 @Component({
   selector: 'app-pagination',
@@ -9,37 +10,36 @@ import { Subject } from 'rxjs';
 })
 export class PaginationComponent {
   @Output()   // For event binding (share event to parent)
-  newNumber = new Subject<number>()
+  numUpdated = new Subject<PaginationEvent>()
 
   // Fixed variables
-  COUNT_MIN = 0
-  COUNT_MAX = 30
   steps = [1, 2, 3, 4, 5]
   
+  @Input()
   count = 0   // current num
-  delta = 1   // increment/decrement value
+  step = 1   // increment/decrement value
 
-  updateCount(delta: number) {
-    this.count += delta
+  // constructor() {
+  //   for (let i = 1; i <= 10; i++) {
+  //     this.steps.push(i);
+  //   }
+  // }
 
-    // Loop count
-    if(this.count > this.COUNT_MAX) {
-      let offset = this.count - this.COUNT_MAX - 1
-      this.count = this.COUNT_MIN + offset
-    }
-    if(this.count < this.COUNT_MIN) {
-      let offset = -(this.count + 1)
-      this.count = this.COUNT_MAX - offset
-    }
+  updateCount(step: number) {
+    this.count += step
 
     // Fire event (to share to parent)
-    this.newNumber.next(this.count)   
+    const event: PaginationEvent = {
+      value: this.count,
+      step: this.step
+    }
+    this.numUpdated.next(event)   
 
     // Debugging
-    console.info('count: ', this.count)
+    console.info(`step: ${this.step}, count: ${this.count}`)
   }
 
   updateStep($event: any) {
-    this.delta = parseInt($event.target.value)
+    this.step = parseInt($event.target.value)
   }
 }
